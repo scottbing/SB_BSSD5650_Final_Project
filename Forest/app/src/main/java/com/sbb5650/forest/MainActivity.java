@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // set up the widgets
         final EditText edHowManyTrees = (EditText) findViewById(R.id.edHowManyTrees);
         numberOfTrees = edHowManyTrees.getText().toString();
+        edHowManyTrees.setHint("Enter total number of trees Here");
         final CheckBox cbSummerOak = (CheckBox) findViewById(R.id.cbSummerOak);
         final CheckBox cbAutumnOak = (CheckBox) findViewById(R.id.cbAutumOak);
         final CheckBox cbRedMaple = (CheckBox) findViewById(R.id.cbRedMaple);
@@ -66,11 +67,24 @@ public class MainActivity extends AppCompatActivity {
         btnMakeForest.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("Main", "Button works!!! ===================================");
+
                 numberOfTrees = edHowManyTrees.getText().toString();
+                edHowManyTrees.requestFocus();
+                if( edHowManyTrees.getText().toString().length() == 0 ) {
+                    edHowManyTrees.setError("Total Number of Trees is required!");
+                    return;
+                }
+                edHowManyTrees.requestFocus();
+                if (edHowManyTrees.getText().toString().trim().equalsIgnoreCase("")) {
+                    edHowManyTrees.setError("This field can not be blank");
+                    return;
+                }
+
 
                 treeCount = 0;
                 // check Summer Oak seettings
                 if (cbSummerOak.isChecked()) {
+                    isSummerOak = true;
                     treeCount++;
                     if (rgSummerOak.getCheckedRadioButtonId() == -1) {
                         // no radio buttons are checked
@@ -92,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // check Autumn Oak seettings
                 if (cbAutumnOak.isChecked()) {
+                    isAutumnOak = true;
                     treeCount++;
                     if (rgAutumnOak.getCheckedRadioButtonId() == -1) {
                         // no radio buttons are checked
@@ -113,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // check Red Maple seettings
                 if (cbRedMaple.isChecked()) {
+                    isAutumnOak = true;
                     treeCount++;
                     if (rgRedMaple.getCheckedRadioButtonId() == -1) {
                         // no radio buttons are checked
@@ -134,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // check Elm seettings
                 if (cbElm.isChecked()) {
+                    isElm = true;
                     treeCount++;
                     if (rgElm.getCheckedRadioButtonId() == -1) {
                         // no radio buttons are checked
@@ -159,8 +176,18 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
 
                 // Storing data into bundle
-                b.putInt("numberOfTrees", Integer.parseInt(numberOfTrees));
-                b.putInt("treeCount", treeCount);
+                if( numberOfTrees.toString().length() == 0 ) {
+                    edHowManyTrees.setError("This field can not be blank");
+                    return;
+                }
+                else {
+                    b.putInt("numberOfTrees", Integer.parseInt(numberOfTrees));
+                    b.putInt("treeCount", treeCount);
+                    b.putBoolean("isSummerOak", isSummerOak);
+                    b.putBoolean("isAutumnOak", isAutumnOak);
+                    b.putBoolean("isRedMaple", isRedMaple);
+                    b.putBoolean("isElm", isElm);
+                }
 
                 // Creating Intent object
                 Intent in = new Intent(MainActivity.this, ForestActivity.class);

@@ -52,6 +52,13 @@ public class ForestActivity extends AppCompatActivity {
 
             // create instance of Random class
             Random random = new Random();
+            Bundle b = getIntent().getExtras();
+            TREES_TO_DRAW = b.getInt("numberOfTrees");
+
+            boolean isSummerOak = b.getBoolean("isSummerOak");
+            boolean isAutumnOak = b.getBoolean("isAutumnOak");
+            boolean isRedMaple = b.getBoolean("isRedMaple");
+            boolean isElm = b.getBoolean("isElm");
 
             Forest forest = new Forest();
             for (int i = 0; i < Math.floor(TREES_TO_DRAW / TREE_TYPES); i++) {
