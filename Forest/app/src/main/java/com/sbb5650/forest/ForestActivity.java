@@ -60,16 +60,29 @@ public class ForestActivity extends AppCompatActivity {
             boolean isRedMaple = b.getBoolean("isRedMaple");
             boolean isElm = b.getBoolean("isElm");
 
+            int colorSummerOak =  b.getInt("colorSummerOak");
+            int colorAutumnOak =  b.getInt("colorAutumnOak");
+            int colorRedMaple =  b.getInt("colorRedMaple");
+            int colorElm =  b.getInt("colorElm");
+
             Forest forest = new Forest();
             for (int i = 0; i < Math.floor(TREES_TO_DRAW / TREE_TYPES); i++) {
-                forest.plantTree(random.nextInt(width), random.nextInt(height),
-                        "Summer Oak", Color.GREEN, "Oak texture stub");
-                forest.plantTree(random.nextInt(width), random.nextInt(height),
-                        "Autumn Oak", Color.YELLOW, "Autumn Oak texture stub");
-                forest.plantTree(random.nextInt(width), random.nextInt(height),
-                        "Red Maple", Color.RED, "Autumn Oak texture stub");
-                forest.plantTree(random.nextInt(width), random.nextInt(height),
-                        "Oak", Color.BLACK, "Autumn Oak texture stub");
+                if (isSummerOak) {
+                    forest.plantTree(random.nextInt(width), random.nextInt(height),
+                            "Summer Oak", colorSummerOak, "Oak texture stub");
+                }
+                if (isAutumnOak) {
+                    forest.plantTree(random.nextInt(width), random.nextInt(height),
+                            "Autumn Oak", colorAutumnOak, "Oak texture stub");
+                }
+                if (isRedMaple) {
+                    forest.plantTree(random.nextInt(width), random.nextInt(height),
+                            "Red Maple", colorRedMaple, "Oak texture stub");
+                }
+                if (isElm) {
+                    forest.plantTree(random.nextInt(width), random.nextInt(height),
+                            "Elm", colorElm, "Oak texture stub");
+                }
             }
 
             // custom drawing code here

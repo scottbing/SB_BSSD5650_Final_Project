@@ -16,11 +16,6 @@ import android.graphics.Color;
 public class MainActivity extends AppCompatActivity {
 
     private String numberOfTrees;
-
-    private int colorSummerOak;
-    private int colorAutumnOak;
-    private int colorRedMaple;
-    private int colorElm;
     private int treeCount = 0;
     private boolean isSummerOak = false;
     private boolean isAutumnOak = false;
@@ -68,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Main", "Button works!!! ===================================");
 
+                // Creating Bundle object
+                Bundle b = new Bundle();
+
                 numberOfTrees = edHowManyTrees.getText().toString();
                 edHowManyTrees.requestFocus();
                 if( edHowManyTrees.getText().toString().length() == 0 ) {
@@ -90,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
                         // no radio buttons are checked
                     } else {
                         if (rbRedSummerOak.isChecked()) {
-                            colorSummerOak = Color.RED;
+                            b.putInt("colorSummerOak", Color.RED);
                         }
                         if (rbGreenSummerOak.isChecked()) {
-                            colorSummerOak = Color.GREEN;
+                            b.putInt("colorSummerOak", Color.GREEN);
                         }
                         if (rbBlueSummerOak.isChecked()) {
-                            colorSummerOak = Color.BLUE;
+                            b.putInt("colorSummerOak", Color.BLUE);
                         }
                         if (rbBlackSummerOak.isChecked()) {
-                            colorSummerOak = Color.BLACK;
+                            b.putInt("colorSummerOak", Color.BLACK);
                         }
                     }
                 }
@@ -112,38 +110,38 @@ public class MainActivity extends AppCompatActivity {
                         // no radio buttons are checked
                     } else {
                         if (rbRedAutumnOak.isChecked()) {
-                            colorAutumnOak = Color.RED;
+                            b.putInt("colorAutumOak", Color.RED);
                         }
                         if (rbGreenAutumnOak.isChecked()) {
-                            colorAutumnOak = Color.GREEN;
+                            b.putInt("colorAutumnOak", Color.GREEN);
                         }
                         if (rbBlueAutumnOak.isChecked()) {
-                            colorAutumnOak = Color.BLUE;
+                            b.putInt("colorAutumnOak", Color.BLUE);
                         }
                         if (rbBlackAutumnOak.isChecked()) {
-                            colorAutumnOak = Color.BLACK;
+                            b.putInt("colorAutumnOak", Color.BLACK);
                         }
                     }
                 }
 
                 // check Red Maple seettings
                 if (cbRedMaple.isChecked()) {
-                    isAutumnOak = true;
+                    isRedMaple = true;
                     treeCount++;
                     if (rgRedMaple.getCheckedRadioButtonId() == -1) {
                         // no radio buttons are checked
                     } else {
                         if (rbRedRedMaple.isChecked()) {
-                            colorRedMaple = Color.RED;
+                            b.putInt("colorRedMaple", Color.RED);
                         }
                         if (rbGreenRedMaple.isChecked()) {
-                            colorRedMaple = Color.GREEN;
+                            b.putInt("colorRedMaple", Color.GREEN);
                         }
                         if (rbBlueRedMaple.isChecked()) {
-                            colorRedMaple = Color.BLUE;
+                            b.putInt("colorRedMaple", Color.BLUE);
                         }
                         if (rbBlackRedMaple.isChecked()) {
-                            colorRedMaple = Color.BLACK;
+                            b.putInt("colorRedMaple", Color.BLACK);
                         }
                     }
                 }
@@ -156,24 +154,23 @@ public class MainActivity extends AppCompatActivity {
                         // no radio buttons are checked
                     } else {
                         if (rbRedElm.isChecked()) {
-                            colorElm = Color.RED;
+                            //colorElm = Color.RED;
+                            b.putInt("colorElm", Color.RED);
                         }
                         if (rbGreenElm.isChecked()) {
-                            colorElm = Color.GREEN;
+                            //colorElm = Color.GREEN;
+                            b.putInt("colorElm", Color.GREEN);
                         }
                         if (rbBlueElm.isChecked()) {
-                            colorElm = Color.BLUE;
+                            //colorElm = Color.BLUE;
+                            b.putInt("colorElm", Color.BLUE);
                         }
                         if (rbBlackElm.isChecked()) {
-                            colorElm = Color.BLACK;
+                            //colorElm = Color.BLACK;
+                            b.putInt("colorElm", Color.BLACK);
                         }
                     }
                 }
-                int i = 0;
-
-                // call ForestActivity passign data
-                // Creating Bundle object
-                Bundle b = new Bundle();
 
                 // Storing data into bundle
                 if( numberOfTrees.toString().length() == 0 ) {
