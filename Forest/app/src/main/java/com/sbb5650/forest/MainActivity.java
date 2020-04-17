@@ -1,6 +1,9 @@
 package com.sbb5650.forest;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.graphics.Color;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -170,6 +174,23 @@ public class MainActivity extends AppCompatActivity {
                             b.putInt("colorElm", Color.BLACK);
                         }
                     }
+                }
+
+                // no trees were selected
+                if (!isSummerOak && !isAutumnOak && !isRedMaple && !isElm) {
+                    AlertDialog.Builder dialog=new AlertDialog.Builder(MainActivity.this);
+                    dialog.setMessage("Please Select at least one tree and tree color.");
+                    dialog.setTitle("ALERT");
+                    dialog.setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    AlertDialog alertDialog=dialog.create();
+                    alertDialog.show();
+                    return;
                 }
 
                 // Storing data into bundle
