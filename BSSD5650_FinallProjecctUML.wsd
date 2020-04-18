@@ -1,0 +1,73 @@
+@startuml
+class TreeFactory {
+  -treeTypes: TreeType[]
++getTreeType(name,color,other)
+}
+
+class Forest {
+ +trees : Tree[]
++plantTree(x,y,name,color,other):Tree
++paint(canvas)
++draw(canvas,x,y,color,paint) 
+}
+
+class Tree {
+    + x
++ y
++ type : TreeType
++draw(canvas)
+}
+
+class TreeType {
+    - name
+- color
+- other
++ TreeType(name,color.other)
++ draw(canvas,x,y)
+}
+
+interface Iterator {
+    +reset()
++next()
++currentItem()
++hasMore():bool
+}
+
+class TreeIterator {
+    -trees
+-position
++TreeIterator(trees)
++reset()
++next()
++currentItem()
+hasNext()
+}
+
+class MainActivity {
+    +numberOfTrees
+    +treeCount
+    +isSuumerOak
+    +isAutumnOak
+    +isRedMaple
+    +isElm
+    +onCreate()
+}
+
+class ForestActivity {
+    
+}
+
+class DemoView {
+        
+}
+
+
+Forest o--> Tree
+Forest --> TreeFactory
+Tree --> TreeType
+TreeFactory o--> TreeType
+Iterator <|.. TreeIterator
+Forest --> TreeIterator
+ForestActivity +-- DemoView
+ForestActivity --> MainActivity 
+@enduml
