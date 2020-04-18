@@ -61,6 +61,18 @@ public class MainActivity extends AppCompatActivity {
         final RadioButton rbBlueElm = (RadioButton) findViewById(R.id.rbBlueElm);
         final RadioButton rbBlackElm = (RadioButton) findViewById(R.id.rbBlackElm);
 
+        // handle the reset button
+        final Button btnReset = (Button) findViewById(R.id.btnReset);
+        btnReset.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (v==btnReset) {
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                }
+            }
+        });
+
         // handle the button
         Button btnMakeForest = (Button) findViewById(R.id.btnMakeForest);
         btnMakeForest.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     edHowManyTrees.setError("This field can not be blank");
                     return;
                 }
-
 
                 treeCount = 0;
                 // check Summer Oak seettings
@@ -114,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         // no radio buttons are checked
                     } else {
                         if (rbRedAutumnOak.isChecked()) {
-                            b.putInt("colorAutumOak", Color.RED);
+                            b.putInt("colorAutumnOak", Color.RED);
                         }
                         if (rbGreenAutumnOak.isChecked()) {
                             b.putInt("colorAutumnOak", Color.GREEN);

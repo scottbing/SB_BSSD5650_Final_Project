@@ -1,7 +1,9 @@
 package com.sbb5650.forest;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -54,6 +57,7 @@ public class ForestActivity extends AppCompatActivity {
             Random random = new Random();
             Bundle b = getIntent().getExtras();
             TREES_TO_DRAW = b.getInt("numberOfTrees");
+            TREE_TYPES = b.getInt("treeCount");
 
             boolean isSummerOak = b.getBoolean("isSummerOak");
             boolean isAutumnOak = b.getBoolean("isAutumnOak");
@@ -96,9 +100,14 @@ public class ForestActivity extends AppCompatActivity {
             // draw the trees
             forest.paint(canvas);
 
+            //show the Flyweight results
+            showResults();
+
             //undo the rotate
             //canvas.restore();
         }
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,5 +115,39 @@ public class ForestActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    public void showResults() {
+        double total = ((TREES_TO_DRAW * 8 + TREE_TYPES * 30) / 1024 / 1024);
+        double insteadOf = ((TREES_TO_DRAW * 38) / 1024 / 1024);
+        AlertDialog.Builder dialog=new AlertDialog.Builder(ForestActivity.this);
+        StringBuilder sb = new StringBuilder();
+        sb.append(TREES_TO_DRAW + " trees drawn");
+        sb.append("\n");
+        sb.append("---------------------");
+        sb.append("\n");
+        sb.append("Memory usage:");
+        sb.append("\n");
+        sb.append("Tree size (8 bytes) * " + TREES_TO_DRAW);
+        sb.append("\n");
+        sb.append("+ TreeTypes size (~30 bytes) * " + TREE_TYPES + "");
+        sb.append("\n");
+        sb.append("---------------------");
+        sb.append("\n");
+        sb.append("Total: " + ((TREES_TO_DRAW * 8 + TREE_TYPES * 30) / 1024 / 1024) +
+                "MB (instead of " + ((TREES_TO_DRAW * 38) / 1024 / 1024) + "MB)");
+        dialog.setMessage(sb.toString());
+        dialog.setTitle("FLYWEIGHT RESULTS");
+        dialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                    }
+                });
+        AlertDialog alertDialog=dialog.create();
+        alertDialog.show();
+        return;
+    }
+
 
 }
